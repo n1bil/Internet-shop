@@ -1,23 +1,195 @@
--------------------User-----------------
+-------------------Product-----------------
 
-1. Get user by id
+1. Get products
 Method: GET
-URL:/api/users{id}
+URL: /api/products
 
-Request -
+Request: -
+
+Response:
+[
+    {
+        "id": 1,
+        "productName": ...,
+        "description": ...,
+        "category": {
+            "id": 1,
+            "categoryName": ...
+        },
+        "manufacturer": {
+            "id": 1,
+            "manufacturerName": ...,
+            "country": ...
+        },
+        "price":   ...,
+        "quantity" ...
+    },
+    {
+    }
+]
+
+2. Get products by category
+Method: GET
+URL: /api/products/category/{categoryId}
+
+Request: -
+
+Response:
+[
+    {
+        "id": 1,
+        "productName": ...,
+        "description": ...,
+        "category": {
+            "id": 1,
+            "categoryName": ...
+        },
+        "manufacturer": {
+            "id": 1,
+            "manufacturerName": ...,
+            "country": ...
+        },
+        "price":   ...,
+        "quantity" ...
+    },
+    {
+    }
+]
+
+
+3. Get products by price range
+Method: GET
+URL: /api/products/category/{categoryId}/query?minPrice={minPrice}&maxPrice={maxPrice}
+
+Request: -
+
+Response:
+[
+    {
+        "id": 1,
+        "productName": ...,
+        "description": ...,
+        "category": {
+            "id": 1,
+            "categoryName": ...
+        },
+        "manufacturer": {
+            "id": 1,
+            "manufacturerName": ...,
+            "country": ...
+        },
+        "price":   ...,
+        "quantity" ...
+    },
+    {
+    }
+]
+
+
+4. Get products by category and manufacturer
+Method: GET
+URL: /api/products/category/{categoryId}/{manufacturerId}
+
+Request: -
+
+Response:
+[
+    {
+        "id": 1,
+        "productName": ...,
+        "description": ...,
+        "category": {
+            "id": 1,
+            "categoryName": ...
+        },
+        "manufacturer": {
+            "id": 1,
+            "manufacturerName": ...,
+            "country": ...
+        },
+        "price":   ...,
+        "quantity" ...
+    },
+    {
+    }
+]
+
+
+5. Get products by category, manufacturer and range price
+Method: GET
+URL: /api/products/category/{categoryId}/{manufacturerId}/priceRange?minPrice={minPrice}&maxPrice={maxPrice}
+
+Request: -
+
+Response:
+[
+    {
+        "id": 1,
+        "productName": ...,
+        "description": ...,
+        "category": {
+            "id": 1,
+            "categoryName": ...
+        },
+        "manufacturer": {
+            "id": 1,
+            "manufacturerName": ...,
+            "country": ...
+        },
+        "price":   ...,
+        "quantity" ...
+    },
+    {
+    }
+]
+
+
+6. Get productInfo by id
+Method: GET
+URL: /api/products/{productId}
+
+Request: -
 
 Response:
 {
-     "id":                   1,
-     "username":             "username1",
-     "createManagerDate":    ...,
-     "lastUpdate":           ...
+    "price":   ...,
+    "quantity" ...
 }
 
 
-2. Create user
+
+
+7. Get product by id
 Method: GET
-URL:/api/users
+URL: /api/products/{productId}
+
+Request: -
+
+Response:
+{
+    "id": 1,
+    "productName": ...,
+    "description": ...,
+    "category": {
+         "id": 1,
+         "categoryName": ...
+    },
+    "manufacturer": {
+        "id": 1,
+        "manufacturerName": ...,
+        "country": ...
+    },
+    "price": ...,
+    "quantity" ...
+}
+
+
+-------------------User-----------------
+
+
+1. Register user
+Method: POST
+URL:/api/users/register
 
 Request:
 {
@@ -33,14 +205,15 @@ Response:
     "lastUpdate":           ...
 }
 
-3. Update user by id
-Method: GET
-URL:/api/users/{id}
+
+2. Authorisation user
+Method: POST
+URL:/api/users/login
 
 Request:
 {
     "username":             "username1",
-    "password":             "newPassword"
+    "password":             ...
 }
 
 Response:
@@ -51,156 +224,301 @@ Response:
     "lastUpdate":           ...
 }
 
+
+3. Update user by id
+Method: GET
+URL:/api/users/{id}
+
+Request:
+{
+    "username":             "username1"
+}
+
+Response:
+{
+    "id":                   1,
+    "username":             "username1",
+    "createManagerDate":    ...,
+    "lastUpdate":           ...
+}
+
+
 -------------------Order-----------------
 
-1. Get orders
+
+1. Show info about user's cart
 Method: GET
-URL: /api/users/orders
+URL: /api/orders/cart/{userId}
+
+Request: -
+
+Response:
+{
+    user_id: 1,
+    cartItems: [
+        {
+            "product_name": ...,
+            "description":  ...,
+            "category": {
+                "id": 1,
+                "category_name"
+            },
+            "manufacturer": {
+                "id": 1,
+                "manufacturer_name": ...,
+                "country": ...
+            }
+        }
+    ],
+}
+
+
+3. Place an order
+Method: POST
+URL: /api/orders/placeOrder/{userId}
+
+Request:
+{
+    "paymentMethod": "Credit Card"
+}
+
+Response:
+{
+    "order_id": ...,
+    "orderItems": [
+        {
+            product: {
+                "productId": 1,
+                "productName": ...,
+            },
+            "quantity": 5,
+            "price": 100.0,
+        },
+        {
+            product: {
+                "productId": 1,
+                "productName": ...,
+            },
+            "quantity": 5,
+            "price": 100.0,
+        }
+    ],
+    "totalPrice": ...,
+    "orderStatus": "Confirmed"
+}
+
+
+4. Cancel order
+Method: PUT
+URL: /api/orders/cancelOrder/{userId}
+
+Request: -
+
+Response:
+{
+    "orderId": ...
+    "orderStatus": "Cancelled"
+}
+
+
+
+5. get list orders
+Method: GET
+URL: /api/orders/{id}
 
 Request: -
 
 Response:
 [
     {
-        "id": 1,
-        "total_amount": 3,
-        "user": {
-            "id": 1,
-            "username" ...
+        "orderId": ...,
+        "orderItems": [
+            {
+                product: {
+                    "productId": 1,
+                    "productName": ...,
+                },
+                "quantity": 5,
+                "price": 100.0,
+            },
+            {
+            product: {
+                "productId": 1,
+                "productName": ...,
+            },
+            "quantity": 5,
+            "price": 100.0,
+            },
+        ],
+        "totalPrice": ...,
+        "orderStatus": "Confirmed"
+    }
+]
+
+
+6. Get information about order by id
+Method: PUT
+URL: /api/orders/{orderId}
+
+Request: -
+
+Response:
+{
+    "orderId": ...,
+    "orderItems": [
+        {
+            product: {
+                "productId": 1,
+                "productName": ...,
+            },
+            "quantity": 5,
+            "price": 100.0,
         },
-        "order_status": {
-            "id": 1,
-            "order_status": ...
+        {
+        product: {
+            "productId": 1,
+            "productName": ...,
         },
-        "payment_method": {
-            "id": 1,
-            "method": ...
+        "quantity": 5,
+        "price": 100.0,
         },
-        "payment_status": {
-            "id": 1,
-            "payment_status": ...
+    ],
+    "totalPrice": ...,
+    "orderStatus": "Confirmed"
+}
+
+
+-------------------Cart Item-----------------
+
+1. Get Cart Items
+Method: GET
+URL: /api/cartItems
+
+Request: -
+
+Response:
+[
+    {
+        "product": {
+            "id": 2,
+            "productName": ...,
+            "description": ...
+            "category": {
+                "id": 1,
+                "categoryName": ...
+            },
+            "manufacturer": {
+                "id": 1,
+                "manufacturerName": ...,
+                "country": ...
+            },
+            "price": ...,
+            "quantity" ...
         },
-        "create_data": ...
+        "quantity": ...,
+        cart: {
+            "id": 1,
+            "user": {
+                "id": 1,
+                "username": ...,
+                "createDate": ...,
+                "lastVisitData" ...
+            }
+        }
     },
     {
     }
 ]
 
-2. Get order by id
+
+2. Get Cart Items by id
 Method: GET
-URL: /api/users/orders/{id}
+URL: /api/cartItems/{cartItemId}
 
 Request: -
 
 Response:
 {
-    "id": 1,
-    "total_amount": 3,
-    "user": {
-        "id": 1,
-        "username" ...
+    product: {
+        "id": 2,
+        "productName": ...,
+        "description": ...
+        "category": {
+            "id": 1,
+            "categoryName": ...
+            },
+        "manufacturer": {
+            "id": 1,
+            "manufacturerName": ...,
+            "country": ...
+        },
+        "price": ...,
+        "quantity" ...
     },
-    "order_status": {
+    "quantity" ...,
+    cart: {
         "id": 1,
-        "order_status": ...
-    },
-    "payment_method": {
-        "id": 1,
-        "method": ...
-    },
-    "payment_status": {
-        "id": 1,
-        "payment_status": ...
-    },
-    "create_data": ...
+        "user": {
+            "id": 1,
+            "username": ...,
+            "createDate": ...,
+            "lastVisitData": ...
+        }
+    }
 }
 
 
-3. Create order
+3. Create Cart
 Method: POST
-URL: /api/users/orders
-
-Request:
-{
-    "total_amount": ...,
-    "user": 1,
-    "order_status": 1,
-    "payment_method": 2,
-    "payment_status": 2,
-    "create_data": ...
-}
-
-Response:
-{
-    "id": 1,
-    "total_amount": ...,
-    "user": {
-        "id": 1,
-        "username" ...
-    },
-    "order_status": {
-        "id": 1,
-        "order_status": ...
-    },
-    "payment_method": {
-        "id": 2,
-        "method": ...
-    },
-    "payment_status": {
-        "id": 2,
-        "payment_status": ...
-    },
-    "create_data": ...
-}
-
-
-4. Update order
-Method: PUT
-URL: /api/users/orders/{orderId}
+URL: /api/cartItems
 
 Request: -
 {
-    "total_amount": ...,
-    "user": 1,
-    "order_status": 1,
-    "payment_method": 2,
-    "payment_status": 2,
-    "create_data": ...
+    product: 2,
+    quantity 6,
+    cart: 1
 }
 
 Response:
 {
-    "id": 1,
-    "total_amount": ...,
-    "user": {
-        "id": 1,
-        "username" ...
-    },
-    "order_status": {
-        "id": 1,
-        "order_status": ...
-    },
-    "payment_method": {
+    product: {
         "id": 2,
-        "method": ...
+        productName: ...,
+        description: ...
+        "category": {
+            "id": 1,
+            "categoryName": ...
+            },
+        "manufacturer": {
+            "id": 1,
+            "manufacturerName": ...,
+            "country": ...
+        },
+        "price": ...,
+        "quantity" ...
     },
-    "payment_status": {
-        "id": 2,
-        "payment_status": ...
-    },
-    "create_data": ...
+    "quantity": ...,
+    cart: {
+        "id": 1,
+        "user": {
+            "id": 1,
+            "username": ...,
+            "createDate": ...,
+            "lastVisitData": ...
+        }
+    }
 }
 
 
-5. Delete order
-Method: GET
-URL: /api/users/orders/{orderId}
+4. Delete Cart Item
+Method: DELETE
+URL: /api/cartItems/{cartItemId}
 
 Request: -
 
 Response:
 {
-    "message": "product was successfully deleted"
+    "message": "Item was successfully deleted"
 }
 
 
@@ -342,241 +660,6 @@ Response:
 4. Delete Order
 Method: DELETE
 URL: /api/ordersItems
-
-Request: -
-
-Response:
-{
-    "message": "Item was successfully deleted"
-}
-
--------------------Product-----------------
-
-1. Get products
-Method: GET
-URL: /api/products
-
-Request: -
-
-Response:
-[
-    {
-        "id": 1,
-        "productName": ...,
-        "description": ...,
-        "category": {
-            "id": 1,
-            "categoryName": ...
-        },
-        "manufacturer": {
-            "id": 1,
-            "manufacturerName": ...,
-            "country": ...
-        },
-        "price": ...,
-        "quantity" ...
-    },
-    {
-    }
-]
-
-
-2. Get product by id
-Method: GET
-URL: /api/products/{productId}
-
-Request: -
-
-Response:
-{
-    "id": 1,
-    "productName": ...,
-    "description": ...,
-    "category": {
-         "id": 1,
-         "categoryName": ...
-    },
-    "manufacturer": {
-        "id": 1,
-        "manufacturerName": ...,
-        "country": ...
-    },
-    "price": ...,
-    "quantity" ...
-}
-
-
-3. Add product
-Method: POST
-URL: /api/products
-
-Request: -
-{
-    "id": 1,
-    "productName": ...,
-    "description": ...,
-    "category": 1,
-    "manufacturer": 1,
-    "price": ...,
-    "quantity": ...
-}
-
-Response:
-{
-    "id": 1,
-    "productName": ...,
-    "description": ...,
-    "category": {
-         "id": 1,
-         "categoryName": ...
-    },
-    "manufacturer": {
-        "id": 1,
-        "manufacturerName": ...,
-        "country": ...
-    },
-    "price": ...,
-    "quantity"
-}
-
-
-4. Delete product
-Method: DELETE
-URL: /api/products/{productId}
-
-Request: -
-
-Response:
-{
-    "message": "Product was successfully deleted"
-}
-
-
--------------------Cart Item-----------------
-
-1. Get Cart Items
-Method: GET
-URL: /api/cartItems
-
-Request: -
-
-Response:
-[
-    {
-        "product": {
-            "id": 2,
-            "productName": ...,
-            "description": ...
-            "category": {
-                "id": 1,
-                "categoryName": ...
-            },
-            "manufacturer": {
-                "id": 1,
-                "manufacturerName": ...,
-                "country": ...
-            },
-            "price": ...,
-            "quantity" ...
-        },
-        "quantity": ...,
-        cart: {
-            "id": 1,
-            "user": {
-                "id": 1,
-                "username": ...,
-                "createDate": ...,
-                "lastVisitData" ...
-            }
-        }
-    },
-    {
-    }
-]
-
-
-2. Get Cart Items by id
-Method: GET
-URL: /api/cartItems/{cartItemId}
-
-Request: -
-
-Response:
-{
-    product: {
-        "id": 2,
-        "productName": ...,
-        "description": ...
-        "category": {
-            "id": 1,
-            "categoryName": ...
-            },
-        "manufacturer": {
-            "id": 1,
-            "manufacturerName": ...,
-            "country": ...
-        },
-        "price": ...,
-        "quantity" ...
-    },
-    "quantity" ...,
-    cart: {
-        "id": 1,
-        "user": {
-            "id": 1,
-            "username": ...,
-            "createDate": ...,
-            "lastVisitData": ...
-        }
-    }
-}
-
-
-3. Create Cart
-Method: POST
-URL: /api/cartItems
-
-Request: -
-{
-    product: 2,
-    quantity 6,
-    cart: 1
-}
-
-Response:
-{
-    product: {
-        "id": 2,
-        productName: ...,
-        description: ...
-        "category": {
-            "id": 1,
-            "categoryName": ...
-            },
-        "manufacturer": {
-            "id": 1,
-            "manufacturerName": ...,
-            "country": ...
-        },
-        "price": ...,
-        "quantity" ...
-    },
-    "quantity": ...,
-    cart: {
-        "id": 1,
-        "user": {
-            "id": 1,
-            "username": ...,
-            "createDate": ...,
-            "lastVisitData": ...
-        }
-    }
-}
-
-
-4. Delete Cart Item
-Method: DELETE
-URL: /api/cartItems/{cartItemId}
 
 Request: -
 
