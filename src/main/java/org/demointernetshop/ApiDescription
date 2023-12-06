@@ -88,7 +88,7 @@ Response:
 
 4. Get products by category and manufacturer
 Method: GET
-URL: /api/products/category/{categoryId}/{manufacturerId}
+URL: /api/products/category/{categoryId}/manufacturer/{manufacturerId}
 
 Request: -
 
@@ -117,7 +117,7 @@ Response:
 
 5. Get products by category, manufacturer and range price
 Method: GET
-URL: /api/products/category/{categoryId}/{manufacturerId}/priceRange?minPrice={minPrice}&maxPrice={maxPrice}
+URL: /api/products/category/{categoryId}/{manufacturerId}/manufacturer/priceRange?minPrice={minPrice}&maxPrice={maxPrice}
 
 Request: -
 

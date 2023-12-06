@@ -11,13 +11,14 @@ import org.demointernetshop.entity.Manufacturer;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductResponseDto {
+public class ProductsByCategoryAndPriceResponseDto {
 
     private Integer id;
-    private String name;
+    private String product_name;
     private String description;
     private Category category;
     private Manufacturer manufacturer;
-    private double productPrice;
-    private int productQuantity;
+    private int product_price;
+    private int product_quantity;
+
 }

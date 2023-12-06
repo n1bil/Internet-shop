@@ -4,19 +4,15 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.demointernetshop.entity.Role;
-
-import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserResponseDto {
+public class UserRequestDto {
 
-    private Integer id;
     private String username;
-    private Role role;
+    private String password;
     private String email;
     private String phoneNumber;
 
