@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.demointernetshop.dto.cart.CartChangeRequestDto;
 import org.demointernetshop.dto.cart.CartDto;
 import org.demointernetshop.dto.product.ProductDto;
+import org.demointernetshop.dto.product.ProductShortInfoDto;
 import org.demointernetshop.entity.Cart;
 import org.demointernetshop.entity.CartItem;
 import org.demointernetshop.entity.Product;
@@ -14,6 +15,7 @@ import org.demointernetshop.repository.ProductRepository;
 import org.demointernetshop.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -25,8 +27,9 @@ public class CartService {
     private CartMapper cartMapper;
     private ProductRepository productRepository;
 
-    public CartDto getCart(Integer cartId) {
-        Cart cart = cartRepository.findById(cartId).orElseThrow(() -> new IllegalArgumentException("Cart not found"));
+    public CartDto getCart(Integer userId) {
+        User foundUser = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("User not found"));
+        Cart cart = foundUser.getCart();
 
         return cartMapper.mapToCartDto(cart);
     }

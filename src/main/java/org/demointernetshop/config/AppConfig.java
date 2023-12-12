@@ -23,13 +23,18 @@ public class AppConfig {
     }
 
     @Bean
-    public ProductMapper productMapper() {
-        return new ProductMapper();
+    public ProductMapper productMapper(CategoryMapper categoryMapper, ManufacturerMapper manufacturerMapper) {
+        return new ProductMapper(categoryMapper, manufacturerMapper);
     }
 
     @Bean
     public UserMapper userMapper() {
         return new UserMapper();
+    }
+
+    @Bean
+    public CategoryMapper categoryMapper() {
+        return new CategoryMapper();
     }
 
 }

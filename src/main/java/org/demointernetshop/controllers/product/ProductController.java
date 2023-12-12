@@ -1,5 +1,6 @@
 package org.demointernetshop.controllers.product;
 
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.demointernetshop.dto.product.CategoryDto;
 import org.demointernetshop.dto.product.ProductDto;
@@ -12,11 +13,11 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
-@RequiredArgsConstructor
+@AllArgsConstructor
 @RequestMapping("/api/products")
 public class ProductController {
 
-    private final ProductService productService;
+    private ProductService productService;
 
     @GetMapping
     public ResponseEntity<List<ProductDto>> getAllProducts(){

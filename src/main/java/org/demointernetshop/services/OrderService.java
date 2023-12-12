@@ -5,11 +5,13 @@ import org.demointernetshop.dto.order.OrderRequestDto;
 import org.demointernetshop.dto.order.OrderResponseDto;
 import org.demointernetshop.entity.Cart;
 import org.demointernetshop.entity.Order;
+import org.demointernetshop.entity.OrderItem;
+import org.demointernetshop.entity.User;
 import org.demointernetshop.mapper.OrderMapper;
 import org.demointernetshop.repository.*;
 import org.springframework.stereotype.Service;
 
-import static org.demointernetshop.utils.Utils.calculateTotalAmount;
+import java.util.List;
 
 
 @Service
@@ -18,6 +20,7 @@ public class OrderService {
 
     private OrderRepository orderRepository;
     private CartRepository cartRepository;
+    private UserRepository userRepository;
     private OrderMapper orderMapper;
     private OrderStatusRepository orderStatusRepository;
     private PaymentMethodRepository paymentMethodRepository;
@@ -25,15 +28,17 @@ public class OrderService {
 
     public OrderResponseDto createOrder(Integer cartId, OrderRequestDto request) {
         Cart cart = cartRepository.findById(cartId).orElseThrow(() -> new IllegalArgumentException("Cart not found"));
+        User user = userRepository.findById(request.getUserId()).orElseThrow(() -> new RuntimeException("Cart not found"));
 
         Order newOrder = Order.builder()
-                .user(request.getUser())
-                .orderItems(orderMapper.mapToOrderItems(cart.getCartItems()))
-                .totalAmount(calculateTotalAmount(request.getProducts()))
+                .user(user)
                 .orderStatus(orderStatusRepository.findByStatus("PROCESSING").orElseThrow())
                 .paymentStatus(paymentStatusRepository.findByStatus("PAID").orElseThrow())
                 .paymentMethod(paymentMethodRepository.findByMethod("BY_CASH").orElseThrow())
                 .build();
+
+        List<OrderItem> orderItems = orderMapper.mapToOrderItems(cart.getCartItems(), newOrder);
+        newOrder.setOrderItems(orderItems);
 
         Order savedOrder = orderRepository.save(newOrder);
 
@@ -41,8 +46,8 @@ public class OrderService {
 
     }
 
-    public void deleteOrder(Integer cartId) {
-        cartRepository.deleteById(cartId);
+    public void deleteOrder(Integer orderId) {
+        orderRepository.deleteById(orderId);
     }
 
 }

@@ -1,5 +1,6 @@
 package org.demointernetshop.controllers.product;
 
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.demointernetshop.dto.product.CategoryDto;
 import org.demointernetshop.dto.product.CategoryWithPricesDto;
@@ -14,11 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequiredArgsConstructor
+@AllArgsConstructor
 @RequestMapping("/api/products/category")
 public class CategoryController {
 
-    private final CategoryService categoryService;
+    private CategoryService categoryService;
 
     @GetMapping
     public ResponseEntity<List<CategoryDto>> getAllCategory(){

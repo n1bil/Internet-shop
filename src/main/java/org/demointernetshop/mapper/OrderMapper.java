@@ -11,13 +11,17 @@ import java.util.stream.Collectors;
 
 public class OrderMapper {
 
-    public List<OrderItem> mapToOrderItems(List<CartItem> cartItems) {
+    public List<OrderItem> mapToOrderItems(List<CartItem> cartItems, Order order) {
         return cartItems.stream()
-                .map(cartItem -> OrderItem.builder()
-                        .product(cartItem.getProduct())
-                        .quantity(cartItem.getQuantity())
-                        .price(cartItem.getProduct().getProductInfo().getPrice())
-                        .build())
+                .map(cartItem -> {
+                    OrderItem orderItem = OrderItem.builder()
+                            .product(cartItem.getProduct())
+                            .quantity(cartItem.getQuantity())
+                            .price(cartItem.getProduct().getProductInfo().getPrice())
+                            .build();
+                    orderItem.setOrder(order);
+                    return orderItem;
+                })
                 .collect(Collectors.toList());
     }
 

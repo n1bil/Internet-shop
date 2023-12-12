@@ -1,5 +1,6 @@
 package org.demointernetshop.services;
 
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.demointernetshop.dto.product.CategoryDto;
 import org.demointernetshop.dto.product.CategoryWithPricesDto;
@@ -13,11 +14,11 @@ import java.util.stream.Collectors;
 
 
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class CategoryService {
 
-    private final CategoryRepository categoryRepository;
-    private final ProductInfoRepository productInfoRepository;
+    private CategoryRepository categoryRepository;
+    private ProductInfoRepository productInfoRepository;
     private CategoryMapper categoryMapper;
 
     public List<CategoryDto> getAllCategory(){

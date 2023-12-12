@@ -36,8 +36,6 @@ public class UserService {
         foundUser.setPhone(request.getPhone());
 
 
-        Role userRole = roleRepository.findById(2).get();
-        foundUser.setRole(userRole);
         User updatedUser = userRepository.save(foundUser);
 
         return userMapper.mapToUserResponseDtp(updatedUser);

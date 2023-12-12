@@ -14,6 +14,6 @@ import java.util.List;
 @NoArgsConstructor
 public class OrderRequestDto {
 
-    private User user;
+    private Integer userId;
     private List<ProductShortInfoDto> products;
 }

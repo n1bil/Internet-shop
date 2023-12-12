@@ -1,12 +1,10 @@
 package org.demointernetshop.mapper;
 
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.demointernetshop.dto.product.ProductDto;
 import org.demointernetshop.entity.Product;
 
 @AllArgsConstructor
-@NoArgsConstructor
 public class ProductMapper {
 
     private CategoryMapper categoryMapper;
@@ -19,6 +17,8 @@ public class ProductMapper {
                 .description(product.getDescription())
                 .category(categoryMapper.mapToCategoryDto(product.getCategory()))
                 .manufacturer(manufacturerMapper.mapToManufacturerDto(product.getManufacturer()))
+                .productPrice(product.getProductInfo().getPrice())
+                .productQuantity(product.getProductInfo().getQuantity())
                 .build();
     }
 
