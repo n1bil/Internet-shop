@@ -9,6 +9,7 @@ import org.demointernetshop.entity.Cart;
 import org.demointernetshop.entity.CartItem;
 import org.demointernetshop.entity.Product;
 import org.demointernetshop.entity.User;
+import org.demointernetshop.exception.NotFoundException;
 import org.demointernetshop.mapper.CartMapper;
 import org.demointernetshop.repository.CartRepository;
 import org.demointernetshop.repository.ProductRepository;
@@ -28,14 +29,14 @@ public class CartService {
     private ProductRepository productRepository;
 
     public CartDto getCart(Integer userId) {
-        User foundUser = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("User not found"));
+        User foundUser = userRepository.findById(userId).orElseThrow(() -> new NotFoundException("User with id " + userId + " not found"));
         Cart cart = foundUser.getCart();
 
         return cartMapper.mapToCartDto(cart);
     }
 
     public CartDto updateCart(Integer userId, CartChangeRequestDto request) {
-        User foundUser = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("User not found"));
+        User foundUser = userRepository.findById(userId).orElseThrow(() -> new NotFoundException("User with id " + userId + " not found"));
 
         Cart cart = foundUser.getCart();
         if (cart == null) {
@@ -50,7 +51,7 @@ public class CartService {
         if (existingItem.isPresent()) {
             existingItem.get().setQuantity(request.getCount());
         } else {
-            Product product = productRepository.findById(request.getProduct_id()).orElseThrow(() -> new IllegalArgumentException("Product not found"));
+            Product product = productRepository.findById(request.getProduct_id()).orElseThrow(() -> new NotFoundException("Product with id " + request.getProduct_id() + " not found"));
             CartItem newItem = new CartItem();
             newItem.setProduct(product);
             newItem.setQuantity(request.getCount());

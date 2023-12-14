@@ -5,6 +5,7 @@ import org.demointernetshop.dto.user.UserRegistrationAndUpdateRequestDto;
 import org.demointernetshop.dto.user.UserResponseDto;
 import org.demointernetshop.entity.Role;
 import org.demointernetshop.entity.User;
+import org.demointernetshop.exception.NotFoundException;
 import org.demointernetshop.mapper.UserMapper;
 import org.demointernetshop.repository.RoleRepository;
 import org.demointernetshop.repository.UserRepository;
@@ -29,7 +30,7 @@ public class UserService {
     }
 
     public UserResponseDto updateUser(UserRegistrationAndUpdateRequestDto request, Integer userId) {
-        User foundUser = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("Not Found User"));
+        User foundUser = userRepository.findById(userId).orElseThrow(() -> new NotFoundException("User with id " + userId + " not found"));
         foundUser.setUsername(request.getUsername());
         foundUser.setPassword(request.getPassword());
         foundUser.setEmail(request.getEmail());

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.demointernetshop.dto.product.CategoryDto;
 import org.demointernetshop.dto.product.CategoryWithPricesDto;
+import org.demointernetshop.exception.NotFoundException;
 import org.demointernetshop.mapper.CategoryMapper;
 import org.demointernetshop.repository.CategoryRepository;
 import org.demointernetshop.repository.ProductInfoRepository;
@@ -56,7 +57,7 @@ public class CategoryService {
 
 
         return productInfoRepository.findPriceByCategory(categoryId)
-                .orElseThrow(() -> new RuntimeException("Category not found or no products in the category"));
+                .orElseThrow(() -> new NotFoundException("Category with id " + categoryId + " not found or no products in the category"));
 
     }
 }

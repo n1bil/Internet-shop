@@ -7,6 +7,7 @@ import org.demointernetshop.entity.Cart;
 import org.demointernetshop.entity.Order;
 import org.demointernetshop.entity.OrderItem;
 import org.demointernetshop.entity.User;
+import org.demointernetshop.exception.NotFoundException;
 import org.demointernetshop.mapper.OrderMapper;
 import org.demointernetshop.repository.*;
 import org.springframework.stereotype.Service;
@@ -29,8 +30,8 @@ public class OrderService {
     private PaymentStatusRepository paymentStatusRepository;
 
     public OrderResponseDto createOrder(Integer cartId, OrderRequestDto request) {
-        Cart cart = cartRepository.findById(cartId).orElseThrow(() -> new IllegalArgumentException("Cart not found"));
-        User user = userRepository.findById(request.getUserId()).orElseThrow(() -> new RuntimeException("Cart not found"));
+        Cart cart = cartRepository.findById(cartId).orElseThrow(() -> new NotFoundException("Cart with id " + cartId + " not found"));
+        User user = userRepository.findById(request.getUserId()).orElseThrow(() -> new NotFoundException("User with id " + request.getUserId() + " not found"));
 
         Order newOrder = Order.builder()
                 .user(user)

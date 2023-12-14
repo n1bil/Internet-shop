@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.demointernetshop.dto.product.ProductDto;
 import org.demointernetshop.dto.product.ProductQuantityResponseDto;
 import org.demointernetshop.entity.ProductInfo;
+import org.demointernetshop.exception.NotFoundException;
 import org.demointernetshop.mapper.ProductMapper;
 import org.demointernetshop.repository.ProductInfoRepository;
 import org.demointernetshop.repository.ProductRepository;
@@ -47,7 +48,7 @@ public class ProductService {
     public ProductDto getProductById(Integer productId) {
         return productRepository.findById(productId)
                 .map(productMapper::mapToProductDto)
-                .orElseThrow(() -> new RuntimeException("Product with id " + productId + " not found"));
+                .orElseThrow(() -> new NotFoundException("Product with id " + productId + " not found"));
     }
 
     public ProductQuantityResponseDto getProductQuantity(Integer productId) {
