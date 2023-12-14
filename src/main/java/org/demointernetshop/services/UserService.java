@@ -25,7 +25,7 @@ public class UserService {
         user.setRole(userRole);
         User savedUser = userRepository.save(user);
 
-        return userMapper.mapToUserResponseDtp(savedUser);
+        return userMapper.mapToUserResponseDto(savedUser);
     }
 
     public UserResponseDto updateUser(UserRegistrationAndUpdateRequestDto request, Integer userId) {
@@ -38,7 +38,7 @@ public class UserService {
 
         User updatedUser = userRepository.save(foundUser);
 
-        return userMapper.mapToUserResponseDtp(updatedUser);
+        return userMapper.mapToUserResponseDto(updatedUser);
     }
 
 }

@@ -26,6 +26,7 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+    private BigDecimal totalAmount;
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItem> orderItems;
     @ManyToOne

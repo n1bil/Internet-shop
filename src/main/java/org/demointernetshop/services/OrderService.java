@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static org.demointernetshop.Utils.calculateTotalAmount;
+
 
 @Service
 @AllArgsConstructor
@@ -32,6 +34,7 @@ public class OrderService {
 
         Order newOrder = Order.builder()
                 .user(user)
+                .totalAmount(calculateTotalAmount(request.getProducts()))
                 .orderStatus(orderStatusRepository.findByStatus("PROCESSING").orElseThrow())
                 .paymentStatus(paymentStatusRepository.findByStatus("PAID").orElseThrow())
                 .paymentMethod(paymentMethodRepository.findByMethod("BY_CASH").orElseThrow())
