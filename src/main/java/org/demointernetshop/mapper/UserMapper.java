@@ -1,15 +1,20 @@
 package org.demointernetshop.mapper;
 
+import lombok.AllArgsConstructor;
 import org.demointernetshop.dto.user.UserRegistrationAndUpdateRequestDto;
 import org.demointernetshop.dto.user.UserResponseDto;
 import org.demointernetshop.entity.User;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
+@AllArgsConstructor
 public class UserMapper {
+
+    private PasswordEncoder passwordEncoder;
 
     public User mapToUser(UserRegistrationAndUpdateRequestDto userRequestDto) {
         return User.builder()
                 .username(userRequestDto.getUsername())
-                .password(userRequestDto.getPassword())
+                .password(passwordEncoder.encode(userRequestDto.getPassword()))
                 .email(userRequestDto.getEmail())
                 .phone(userRequestDto.getPhone())
                 .build();

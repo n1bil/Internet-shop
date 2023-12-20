@@ -4,6 +4,7 @@ import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.demointernetshop.exception.BlogAPIException;
+import org.demointernetshop.exception.InvalidJwtException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -56,13 +57,13 @@ public class JwtTokenProvider {
                     .parse(token);
             return true;
         } catch (MalformedJwtException exception) {
-            throw new BlogAPIException(HttpStatus.BAD_REQUEST, "Invalid JWT token");
+            throw new InvalidJwtException(HttpStatus.BAD_REQUEST, "Invalid JWT token");
         } catch (ExpiredJwtException exception) {
-            throw new BlogAPIException(HttpStatus.BAD_REQUEST, "Expired JWT token");
+            throw new InvalidJwtException(HttpStatus.BAD_REQUEST, "Expired JWT token");
         } catch (UnsupportedJwtException exception) {
-            throw new BlogAPIException(HttpStatus.BAD_REQUEST, "Unsupported JWT token");
+            throw new InvalidJwtException(HttpStatus.BAD_REQUEST, "Unsupported JWT token");
         } catch (IllegalArgumentException exception) {
-            throw new BlogAPIException(HttpStatus.BAD_REQUEST, "JWT claims string is empty");
+            throw new InvalidJwtException(HttpStatus.BAD_REQUEST, "JWT claims string is empty");
         }
     }
 

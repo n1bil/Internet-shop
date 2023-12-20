@@ -1,17 +1,16 @@
-package org.demointernetshop.dto;
+package org.demointernetshop.dto.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Setter
 @Getter
-@NoArgsConstructor
+@Setter
 @AllArgsConstructor
-public class JWTAuthResponse {
+@NoArgsConstructor
+public class AuthResponse {
 
     private String accessToken;
     private String tokenType = "Bearer";
-
 }

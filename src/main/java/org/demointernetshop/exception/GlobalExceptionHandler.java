@@ -88,4 +88,10 @@ public class GlobalExceptionHandler {
                 webRequest.getDescription(false));
         return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(InvalidJwtException.class)
+    public ResponseEntity<String> handlerInvalidJwtException(InvalidJwtException e){
+        e.printStackTrace();
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
+    }
 }

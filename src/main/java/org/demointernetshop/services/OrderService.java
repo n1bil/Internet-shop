@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static org.demointernetshop.Utils.calculateTotalAmount;
+import static org.demointernetshop.utils.Utils.calculateTotalAmount;
 
 
 @Service

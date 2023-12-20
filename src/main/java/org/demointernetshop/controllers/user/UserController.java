@@ -22,7 +22,7 @@ public class UserController {
         return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{userId}")
+    @PutMapping("/update/{userId}")
     public ResponseEntity<UserResponseDto> updateUser(@RequestBody UserRegistrationAndUpdateRequestDto request,
                                                       @PathVariable Integer userId) {
         UserResponseDto updatedUser = userService.updateUser(request, userId);

@@ -1,4 +1,4 @@
-package org.demointernetshop;
+package org.demointernetshop.utils;
 
 import org.demointernetshop.dto.product.ProductShortInfoDto;
 

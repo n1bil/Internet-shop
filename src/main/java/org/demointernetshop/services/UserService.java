@@ -9,6 +9,7 @@ import org.demointernetshop.exception.NotFoundException;
 import org.demointernetshop.mapper.UserMapper;
 import org.demointernetshop.repository.RoleRepository;
 import org.demointernetshop.repository.UserRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
